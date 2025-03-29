@@ -1,14 +1,15 @@
 package main
 
 import (
+	"crypto/rand"
 	"fmt"
 	"os"
 	"strconv"
 	"strings"
 
+	pb "github.com/PretendoNetwork/grpc-go/account"
 	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/nex-go/v2/types"
-	pb "github.com/PretendoNetwork/grpc-go/account"
 	"github.com/PretendoNetwork/plogger-go"
 	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
@@ -30,7 +31,6 @@ func init() {
 	}
 
 	postgresURI := os.Getenv("PN_POSTGRES_URI")
-	kerberosPassword := os.Getenv("PN_KERBEROS_PASSWORD")
 	authenticationServerPort := os.Getenv("PN_AUTHENTICATION_SERVER_PORT")
 	secureServerHost := os.Getenv("PN_SECURE_SERVER_HOST")
 	secureServerPort := os.Getenv("PN_SECURE_SERVER_PORT")
@@ -43,10 +43,11 @@ func init() {
 		os.Exit(0)
 	}
 
-	if strings.TrimSpace(kerberosPassword) == "" {
-		globals.Logger.Warningf("PN_KERBEROS_PASSWORD environment variable not set. Using default password: %q", globals.KerberosPassword)
-	} else {
-		globals.KerberosPassword = kerberosPassword
+	kerberosPassword := make([]byte, 0x10)
+	_, err = rand.Read(kerberosPassword)
+	if err != nil {
+		globals.Logger.Error("Error generating Kerberos password")
+		os.Exit(0)
 	}
 
 	globals.AuthenticationServerAccount = nex.NewAccount(types.NewPID(1), "Quazal Authentication", globals.KerberosPassword)
