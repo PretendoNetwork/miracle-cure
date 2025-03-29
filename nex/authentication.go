@@ -5,8 +5,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/miracle-cure/globals"
+	"github.com/PretendoNetwork/nex-go/v2"
 )
 
 var serverBuildString string
@@ -20,7 +20,7 @@ func StartAuthenticationServer() {
 	globals.AuthenticationEndpoint.AccountDetailsByUsername = globals.AccountDetailsByUsername
 	globals.AuthenticationServer.BindPRUDPEndPoint(globals.AuthenticationEndpoint)
 	globals.AuthenticationServer.ByteStreamSettings.UseStructureHeader = true
-	
+
 	globals.AuthenticationServer.LibraryVersions.SetDefault(nex.NewLibraryVersion(3, 7, 1))
 	globals.AuthenticationServer.AccessKey = "07f4860a"
 

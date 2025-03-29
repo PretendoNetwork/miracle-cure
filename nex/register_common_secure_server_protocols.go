@@ -1,20 +1,20 @@
 package nex
 
 import (
-	"github.com/PretendoNetwork/miracle-cure/globals"
 	"github.com/PretendoNetwork/miracle-cure/database"
-	matchmake_extension "github.com/PretendoNetwork/nex-protocols-go/v2/matchmake-extension"
-	common_matchmake_extension "github.com/PretendoNetwork/nex-protocols-common-go/v2/matchmake-extension"
-	match_making "github.com/PretendoNetwork/nex-protocols-go/v2/match-making"
+	"github.com/PretendoNetwork/miracle-cure/globals"
 	common_match_making "github.com/PretendoNetwork/nex-protocols-common-go/v2/match-making"
-	match_making_ext "github.com/PretendoNetwork/nex-protocols-go/v2/match-making-ext"
 	common_match_making_ext "github.com/PretendoNetwork/nex-protocols-common-go/v2/match-making-ext"
-	ranking "github.com/PretendoNetwork/nex-protocols-go/v2/ranking"
-	common_ranking "github.com/PretendoNetwork/nex-protocols-common-go/v2/ranking"
-	nat_traversal "github.com/PretendoNetwork/nex-protocols-go/v2/nat-traversal"
+	common_matchmake_extension "github.com/PretendoNetwork/nex-protocols-common-go/v2/matchmake-extension"
 	common_nat_traversal "github.com/PretendoNetwork/nex-protocols-common-go/v2/nat-traversal"
-	secure "github.com/PretendoNetwork/nex-protocols-go/v2/secure-connection"
+	common_ranking "github.com/PretendoNetwork/nex-protocols-common-go/v2/ranking"
 	common_secure "github.com/PretendoNetwork/nex-protocols-common-go/v2/secure-connection"
+	match_making "github.com/PretendoNetwork/nex-protocols-go/v2/match-making"
+	match_making_ext "github.com/PretendoNetwork/nex-protocols-go/v2/match-making-ext"
+	matchmake_extension "github.com/PretendoNetwork/nex-protocols-go/v2/matchmake-extension"
+	nat_traversal "github.com/PretendoNetwork/nex-protocols-go/v2/nat-traversal"
+	ranking "github.com/PretendoNetwork/nex-protocols-go/v2/ranking"
+	secure "github.com/PretendoNetwork/nex-protocols-go/v2/secure-connection"
 
 	nex_matchmake_extension_common "github.com/PretendoNetwork/miracle-cure/nex/matchmake-extension/common"
 )
@@ -30,15 +30,18 @@ func registerCommonSecureServerProtocols() {
 
 	matchMakingProtocol := match_making.NewProtocol()
 	globals.SecureEndpoint.RegisterServiceProtocol(matchMakingProtocol)
-	common_match_making.NewCommonProtocol(matchMakingProtocol)
+	commonMatchMakingProtocol := common_match_making.NewCommonProtocol(matchMakingProtocol)
+	commonMatchMakingProtocol.SetManager(globals.MatchmakingManager)
 
 	matchMakingExtProtocol := match_making_ext.NewProtocol()
 	globals.SecureEndpoint.RegisterServiceProtocol(matchMakingExtProtocol)
-	common_match_making_ext.NewCommonProtocol(matchMakingExtProtocol)
+	commonMatchMakingExtProtocol := common_match_making_ext.NewCommonProtocol(matchMakingExtProtocol)
+	commonMatchMakingExtProtocol.SetManager(globals.MatchmakingManager)
 
 	matchmakeExtensionProtocol := matchmake_extension.NewProtocol()
 	globals.SecureEndpoint.RegisterServiceProtocol(matchmakeExtensionProtocol)
 	commonMatchmakeExtensionProtocol := common_matchmake_extension.NewCommonProtocol(matchmakeExtensionProtocol)
+	commonMatchmakeExtensionProtocol.SetManager(globals.MatchmakingManager)
 
 	commonMatchmakeExtensionProtocol.CleanupSearchMatchmakeSession = nex_matchmake_extension_common.CleanupSearchMatchmakeSession
 
