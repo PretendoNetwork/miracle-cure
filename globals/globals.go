@@ -19,3 +19,4 @@ var GRPCAccountClientConnection *grpc.ClientConn
 var GRPCAccountClient pb.AccountClient
 var GRPCAccountCommonMetadata metadata.MD
 var MatchmakingManager *common_globals.MatchmakingManager
+var AESKey []byte

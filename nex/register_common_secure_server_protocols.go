@@ -22,7 +22,8 @@ import (
 func registerCommonSecureServerProtocols() {
 	secureProtocol := secure.NewProtocol()
 	globals.SecureEndpoint.RegisterServiceProtocol(secureProtocol)
-	common_secure.NewCommonProtocol(secureProtocol)
+	commonSecureProtocol := common_secure.NewCommonProtocol(secureProtocol)
+	commonSecureProtocol.EnableInsecureRegister()
 
 	natTraversalProtocol := nat_traversal.NewProtocol()
 	globals.SecureEndpoint.RegisterServiceProtocol(natTraversalProtocol)
@@ -44,6 +45,7 @@ func registerCommonSecureServerProtocols() {
 	commonMatchmakeExtensionProtocol.SetManager(globals.MatchmakingManager)
 
 	commonMatchmakeExtensionProtocol.CleanupSearchMatchmakeSession = nex_matchmake_extension_common.CleanupSearchMatchmakeSession
+	commonMatchmakeExtensionProtocol.CleanupMatchmakeSessionSearchCriterias = nex_matchmake_extension_common.CleanupMatchmakeSessionSearchCriterias
 
 	rankingProtocol := ranking.NewProtocol()
 	globals.SecureEndpoint.RegisterServiceProtocol(rankingProtocol)
