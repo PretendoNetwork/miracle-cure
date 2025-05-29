@@ -26,6 +26,7 @@ func GetRankingsAndCountByCategoryAndRankingOrderParam(category types.UInt32, ra
 	if err != nil {
 		return rankings, 0, err
 	}
+	defer rows.Close()
 
 	row := 1
 	for rows.Next() {
