@@ -58,6 +58,7 @@ func GetRankingsAndCountByCategoryAndRankingOrderParam(category types.UInt32, ra
 			globals.Logger.Critical(err.Error())
 			return rankings, 0, err
 		}
+		defer commonDataRows.Close()
 		commonDataRows.Next()
 		err = commonDataRows.Scan(
 			&rankingRankData.CommonData,
