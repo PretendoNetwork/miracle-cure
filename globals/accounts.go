@@ -19,12 +19,12 @@ func AccountDetailsByPID(pid types.PID) (*nex.Account, *nex.Error) {
 		return SecureServerAccount, nil
 	}
 
-	password, errorCode := PasswordFromPID(pid)
+	password, errorCode := PasswordFromPID(&pid)
 	if errorCode != 0 {
 		return nil, nex.NewError(errorCode, "Failed to get password from PID")
 	}
 
-	account := nex.NewAccount(pid, strconv.Itoa(int(pid)), password)
+	account := nex.NewAccount(pid, strconv.Itoa(int(pid)), password, false)
 
 	return account, nil
 }
@@ -45,12 +45,12 @@ func AccountDetailsByUsername(username string) (*nex.Account, *nex.Error) {
 
 	pid := types.NewPID(uint64(pidInt))
 
-	password, errorCode := PasswordFromPID(pid)
+	password, errorCode := PasswordFromPID(&pid)
 	if errorCode != 0 {
 		return nil, nex.NewError(errorCode, "Failed to get password from PID")
 	}
 
-	account := nex.NewAccount(pid, username, password)
+	account := nex.NewAccount(pid, username, password, false)
 
 	return account, nil
 }

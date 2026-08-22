@@ -35,7 +35,7 @@ func StartAuthenticationServer() {
 
 	registerCommonAuthenticationServerProtocols()
 
-	port, _ := strconv.Atoi(os.Getenv("PN_AUTHENTICATION_SERVER_PORT"))
+	port, _ := strconv.Atoi(os.Getenv("PN_CURE_AUTHENTICATION_SERVER_PORT"))
 
 	globals.AuthenticationServer.Listen(port)
 }

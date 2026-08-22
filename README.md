@@ -15,7 +15,7 @@ $ cd miracle-cure
 To compile using Go, `go get` the required modules and then `go build` to your desired location. You may also want to tidy the go modules, though this is optional
 
 ```bash
-$ go get -u
+$ go get
 $ go mod tidy
 $ go build -o build/miracle-cure
 ```
@@ -44,14 +44,16 @@ All configuration options are handled via environment variables
 
 `.env` files are supported
 
-| Name                                | Description                                                                                                            | Required                                      |
-|-------------------------------------|------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------|
-| `PN_POSTGRES_URI`                   | Fully qualified URI to your Postgres server (Example `postgres://username:password@localhost/mk7?sslmode=disable`)     | Yes                                           |
-| `PN_KERBEROS_PASSWORD`              | Password used as part of the internal server data in Kerberos tickets                                                  | No (Default password `password` will be used) |
-| `PN_AUTHENTICATION_SERVER_PORT`     | Port for the authentication server                                                                                     | Yes                                           |
-| `PN_SECURE_SERVER_HOST`             | Host name for the secure server (should point to the same address as the authentication server)                        | Yes                                           |
-| `PN_SECURE_SERVER_PORT`             | Port for the secure server                                                                                             | Yes                                           |
-| `PN_ACCOUNT_GRPC_HOST`              | Host name for your account server gRPC service                                                                         | Yes                                           |
-| `PN_ACCOUNT_GRPC_PORT`              | Port for your account server gRPC service                                                                              | Yes                                           |
-| `PN_ACCOUNT_GRPC_API_KEY`           | API key for your account server gRPC service                                                                           | No (Assumed to be an open gRPC API)           |
-| `PN_AES_KEY`                        | AES key from the account server                                                                                        | Yes                                           |
+| Name                                | Description                                                                                                         | Required                                      |
+|-------------------------------------|---------------------------------------------------------------------------------------------------------------------|-----------------------------------------------|
+| `PN_CURE_POSTGRES_URI`               | Fully qualified URI to your Postgres server (Example `postgres://username:password@localhost/miraclecure?sslmode=disable`)  | Yes                                           |
+| `PN_CURE_AUTHENTICATION_SERVER_PORT` | Port for the authentication server                                                                                  | Yes                                           |
+| `PN_CURE_SECURE_SERVER_HOST`         | Host name for the secure server (should point to the same address as the authentication server)                     | Yes                                           |
+| `PN_CURE_SECURE_SERVER_PORT`         | Port for the secure server                                                                                          | Yes                                           |
+| `PN_CURE_ACCOUNT_GRPC_HOST`          | Host name for your account server gRPC service                                                                      | Yes                                           |
+| `PN_CURE_ACCOUNT_GRPC_PORT`          | Port for your account server gRPC service                                                                           | Yes                                           |
+| `PN_CURE_ACCOUNT_GRPC_API_KEY`       | API key for your account server gRPC service                                                                        | No (Assumed to be an open gRPC API)           |
+| `PN_CURE_FRIENDS_GRPC_HOST`          | Host name for your friends server gRPC service                                                                      | Yes                                           |
+| `PN_CURE_FRIENDS_GRPC_PORT`          | Port for your friends server gRPC service                                                                           | Yes                                           |
+| `PN_CURE_FRIENDS_GRPC_API_KEY`       | API key for your friends server gRPC service                                                                        | No (Assumed to be an open gRPC API)           |
+| `PN_CURE_HEALTH_CHECK_PORT`          | Port for the UDP health check                                                                                       | No                                            |
