@@ -38,9 +38,8 @@ func StartSecureServer() {
 	globals.MatchmakingManager = common_globals.NewMatchmakingManager(globals.SecureEndpoint, database.Postgres)
 
 	registerCommonSecureServerProtocols()
-	registerSecureServerNEXProtocols()
 
-	port, _ := strconv.Atoi(os.Getenv("PN_SECURE_SERVER_PORT"))
+	port, _ := strconv.Atoi(os.Getenv("PN_CURE_SECURE_SERVER_PORT"))
 
 	globals.SecureServer.Listen(port)
 }

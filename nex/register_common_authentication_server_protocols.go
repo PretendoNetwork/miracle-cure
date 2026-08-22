@@ -15,13 +15,13 @@ func registerCommonAuthenticationServerProtocols() {
 	ticketGrantingProtocol := ticket_granting.NewProtocol()
 	globals.AuthenticationEndpoint.RegisterServiceProtocol(ticketGrantingProtocol)
 	commonTicketGrantingProtocol := common_ticket_granting.NewCommonProtocol(ticketGrantingProtocol)
-	commonTicketGrantingProtocol.SetPretendoValidation(globals.AESKey)
+	commonTicketGrantingProtocol.ConfigurePNValidation([]string{"0013BB00"})
 
-	port, _ := strconv.Atoi(os.Getenv("PN_SECURE_SERVER_PORT"))
+	port, _ := strconv.Atoi(os.Getenv("PN_CURE_SECURE_SERVER_PORT"))
 
 	secureStationURL := types.NewStationURL("")
 	secureStationURL.SetURLType(constants.StationURLPRUDPS)
-	secureStationURL.SetAddress(os.Getenv("PN_SECURE_SERVER_HOST"))
+	secureStationURL.SetAddress(os.Getenv("PN_CURE_SECURE_SERVER_HOST"))
 	secureStationURL.SetPortNumber(uint16(port))
 	secureStationURL.SetConnectionID(1)
 	secureStationURL.SetPrincipalID(types.NewPID(2))

@@ -15,8 +15,6 @@ import (
 	nat_traversal "github.com/PretendoNetwork/nex-protocols-go/v2/nat-traversal"
 	ranking "github.com/PretendoNetwork/nex-protocols-go/v2/ranking"
 	secure "github.com/PretendoNetwork/nex-protocols-go/v2/secure-connection"
-
-	nex_matchmake_extension_common "github.com/PretendoNetwork/miracle-cure/nex/matchmake-extension/common"
 )
 
 func registerCommonSecureServerProtocols() {
@@ -44,13 +42,10 @@ func registerCommonSecureServerProtocols() {
 	commonMatchmakeExtensionProtocol := common_matchmake_extension.NewCommonProtocol(matchmakeExtensionProtocol)
 	commonMatchmakeExtensionProtocol.SetManager(globals.MatchmakingManager)
 
-	commonMatchmakeExtensionProtocol.CleanupSearchMatchmakeSession = nex_matchmake_extension_common.CleanupSearchMatchmakeSession
-	commonMatchmakeExtensionProtocol.CleanupMatchmakeSessionSearchCriterias = nex_matchmake_extension_common.CleanupMatchmakeSessionSearchCriterias
-
 	rankingProtocol := ranking.NewProtocol()
 	globals.SecureEndpoint.RegisterServiceProtocol(rankingProtocol)
-	ranking_protocol := common_ranking.NewCommonProtocol(rankingProtocol)
-	ranking_protocol.GetRankingsAndCountByCategoryAndRankingOrderParam = database.GetRankingsAndCountByCategoryAndRankingOrderParam
-	ranking_protocol.InsertRankingByPIDAndRankingScoreData = database.InsertRankingByPIDAndRankingScoreData
-	ranking_protocol.UploadCommonData = database.UploadCommonData
+	commonRankingProtocol := common_ranking.NewCommonProtocol(rankingProtocol)
+	commonRankingProtocol.GetRankingsAndCountByCategoryAndRankingOrderParam = database.GetRankingsAndCountByCategoryAndRankingOrderParam
+	commonRankingProtocol.InsertRankingByPIDAndRankingScoreData = database.InsertRankingByPIDAndRankingScoreData
+	commonRankingProtocol.UploadCommonData = database.UploadCommonData
 }
